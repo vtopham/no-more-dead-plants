@@ -1,4 +1,5 @@
 //import actions
+import {WATER_PLANT} from '../Actions/waterPlant'
 
 //need some dates to calculate last watered dates for our plant friends :)
 const plant1Date = new Date();
@@ -25,6 +26,21 @@ const defaultState = {
 
 export const reducer = (state = defaultState, action) => {
     switch(action.type) {
+        case WATER_PLANT:
+            const newStatePlants = state.plants.map(plant => {
+                if (plant.id === action.payload.plantId) {
+                    return {
+                        ...plant,
+                        watering_history: action.payload.wateringDate
+                    } 
+                }
+                else return plant
+            })
+            return {
+                ...state,
+                plants: newStatePlants
+            }
+        
         //switch statement goes here, if action is taken
         default: return state
     }

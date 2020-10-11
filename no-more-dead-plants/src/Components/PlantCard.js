@@ -1,12 +1,63 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import { connect } from 'react-redux'
+import {waterPlant} from '../State/Actions/waterPlant'
 const StyledDiv = styled.div`
+    border: 2px solid #ebebeb;
+    border-radius: 5px;
+    display: flex;
+    
+    margin: 2% 0;
+    padding: 2%;
+    width: 80%; 
     img {
-        width: 20%;
+        width: 100%;
+        border-radius: 100%;
     }
+    .image-container {
+        width: 30%;
+        padding: 2%;
+    }
+    .non-image-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        width: 70%;
+        text-align: left;
+        padding: 2%;
+
+        font-size: 1rem;
+        line-height: 1.25;
+        .plant-name {
+            font-size: 2rem;
+            padding-bottom: 2%;
+        }
+        .feedback {
+            font-style: italic;
+        }
+        .user-information {
+            padding-bottom: 2%;
+        }
+        button {
+            border: 1px solid #ebebeb;
+            background: white;
+            border-radius: 5px;
+            &:hover {
+                background: #ebebeb;
+            }
+        }
+    }
+    
 
 `
+
+const mapStateToProps = state => {
+    return {
+        state: state
+    }
+}
+
 const PlantCard = props => {
     const today = new Date()
     const {id, name} = props.details;
@@ -15,31 +66,43 @@ const PlantCard = props => {
     const lastWatered = new Date(props.details.watering_history);
     //we want to calculate the last watering date
     
-    console.log(lastWatered)
     const daysSinceWatered = Math.floor((today.getTime() - lastWatered.getTime()) / (1000 * 3600 * 24))
-    console.log(daysSinceWatered )
+   
     
     const WateringFeedback = props => {
         const {daysSinceWatered, goal} = props;
         if (daysSinceWatered > goal) {
-            return <p>You should have watered this plant {daysSinceWatered - goal} days ago!</p>
+            const days = daysSinceWatered - goal
+            return <p className = "feedback">You should have watered this plant {days} {days === 1? "day" : "days"} ago!</p>
         } else if (daysSinceWatered === goal) {
-            return <p>You should check to see if your plant needs water</p>
+            return <p className = "feedback">You should check to see if your plant needs water</p>
         } else {
-            return <p>You don't need to water this plant for {goal - daysSinceWatered} days.</p>
+            const days = goal - daysSinceWatered
+            return <p className = "feedback">You don't need to water this plant for {days} {days === 1 ? "day" : "days"}.</p>
         }
+    }
+
+    const wateringEvent = e => {
+        e.preventDefault();
+        const wateringDate = new Date();
+        props.waterPlant(id, wateringDate)
     }
 
     return(
         <StyledDiv>
-            <p>plant number {id}</p>
+            
             <div className = "image-container">
                 <img src = {pictureUrl}/>
             </div>
             <div className = "non-image-content">
-                <p>{name}</p>
-                <p>Last watered {daysSinceWatered} days ago.</p>
-                <WateringFeedback daysSinceWatered = {daysSinceWatered} goal = {goal}/>
+                <div className = "user-information">
+                    <p className = "plant-name">{name}</p>
+                    <p>Last watered {daysSinceWatered} days ago.</p>
+                    <WateringFeedback daysSinceWatered = {daysSinceWatered} goal = {goal}/>
+                </div>
+                <div className = "user-input">
+                    <button onClick = {wateringEvent}>I watered it!</button>
+                </div>
                 
 
             </div>
@@ -47,4 +110,4 @@ const PlantCard = props => {
     )
 }
 
-export default PlantCard
+export default connect(mapStateToProps, {waterPlant})(PlantCard)
