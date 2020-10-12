@@ -46,7 +46,7 @@ const mapStateToProps = state => {
 const Header = props => {
 
     const toggleAddModal = e => {
-        e.preventDefault();
+        // e.preventDefault();
         if (!props.state.adding) {
             props.toggleAdding()
         }

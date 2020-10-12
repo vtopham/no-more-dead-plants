@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+
 import styled from 'styled-components'
 import { toggleAdding } from '../State/Actions/toggleAdding'
 import { connect } from 'react-redux'
@@ -71,7 +72,7 @@ const mapStateToProps = state => {
     }
 }
 const AddPlant = props => {
-    console.log(props)
+    
     const blankForm = {
         name: '',
         watering_history: null,
@@ -98,6 +99,7 @@ const AddPlant = props => {
         props.addPlant(formState);
         props.toggleAdding();
         setFormState(blankForm);
+        props.history.push("/home")
 
     }
 
@@ -105,6 +107,7 @@ const AddPlant = props => {
         e.preventDefault();
         props.toggleAdding();
         setFormState(blankForm);
+        props.history.push("/home")
     }
     return ( 
         <ModalContainer type = "add">

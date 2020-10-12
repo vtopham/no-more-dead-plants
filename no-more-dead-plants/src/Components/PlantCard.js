@@ -108,7 +108,7 @@ const PlantCard = props => {
                 <div className = "user-information">
                     <p className = "plant-name">{name}</p>
                     
-                    {lastWatered === null ? <p>You haven't watered this plant yet.</p> : <p>Last watered {daysSinceWatered} days ago.</p>}
+                    {lastWatered === null ? <p>You haven't watered this plant yet.</p> : <p>Last watered {daysSinceWatered} day{daysSinceWatered != 1? "s" : ""} ago.</p>}
                     <WateringFeedback daysSinceWatered = {daysSinceWatered} goal = {goal}/>
                 </div>
                 <div className = "user-input">

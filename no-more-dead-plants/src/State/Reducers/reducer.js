@@ -7,7 +7,7 @@ import { TOGGLE_ADDING } from '../Actions/toggleAdding'
 const plant1Date = new Date();
 const plant2Date = new Date()
 const defaultState = {
-    adding: true,
+    adding: false,
     editing: false,
     next_id: 3,
     plants: [
