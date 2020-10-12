@@ -12,12 +12,56 @@ const ModalContainer = styled.div`
     position: absolute;
     margin: 0 auto;
     background: white;
-    
+    margin-top: 3%;
+    padding: 5%;
+    border-radius: 5px;
+    border: 2px solid #ebebeb;
+    h3 {
+        font-size: 1.4rem;
+    }
+
+    box-shadow: -7px 7px 10px #9c9c9c;
 
 `
 
 const StyledForm = styled.form`
+    
+    .input-holder {
+        margin: 4% 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        * {
+            margin: 1% 0;
+        }
+        
+    }
+    input {
+        border: 1px solid #ebebeb;
+        padding: 2%;
+    }
+    .button-holder {
+        display: flex;
+        justify-content: center;
+        button {
+            margin: 2% 3%;
+            padding: 3% 5%;
+            border-radius: 5px;
+            border: none;
+        }
+        
+    }
+    
+    .add-button {
+        background: #a1ffc3;
+    }
+    .cancel-button {
+        background: #ffb2a1;
+    }
 
+    .integer-value {
+        width: 40px;
+    }
 
 `
 
@@ -84,11 +128,11 @@ const AddPlant = props => {
                     </div>
                     <div className = "watering_goal_in_days input-holder">
                         <label name = "watering_goal_in_days ">How many days between waterings?: </label>
-                        <input value = {formState.watering_goal_in_days} onChange = {updateForm} name = "watering_goal_in_days"/>
+                        <input className = "integer-value" value = {formState.watering_goal_in_days} onChange = {updateForm} name = "watering_goal_in_days"/>
                     </div>
                     <div className = "button-holder">
-                        <button onClick = {submitForm}>Add Plant</button>
-                        <button onClick = {cancelForm}>Cancel</button>
+                        <button className = "add-button" onClick = {submitForm}>Add Plant</button>
+                        <button className = "cancel-button" onClick = {cancelForm}>Cancel</button>
                     </div>
                 </StyledForm>
                 
