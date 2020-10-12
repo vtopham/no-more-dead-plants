@@ -1,6 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
+import { toggleAdding } from '../State/Actions/toggleAdding'
 const HeaderContainer = styled.div`
 
     margin: 4% 0 2% 0;
@@ -35,7 +37,22 @@ const HeaderContainer = styled.div`
 const StyledLink = styled(Link)`
     text-decoration: none;
 `
-const Header = () => {
+
+const mapStateToProps = state => {
+    return {
+        state: state
+    }
+}
+const Header = props => {
+
+    const toggleAddModal = e => {
+        e.preventDefault();
+        if (!props.state.adding) {
+            props.toggleAdding()
+        }
+        
+        
+    }
     return (
         <HeaderContainer>
             <div className = "header-title">
@@ -43,10 +60,10 @@ const Header = () => {
             </div>
             <nav className = "nav-links">
                     <StyledLink to = {"/home"}>Home</StyledLink>
-                    <StyledLink to = {"/add"}>Add New Plant</StyledLink>
+                    <StyledLink onClick = {toggleAddModal} to = {"/add"}>Add New Plant</StyledLink>
             </nav>
         </HeaderContainer>
     )
 }
 
-export default Header
+export default connect(mapStateToProps,{toggleAdding})(Header)

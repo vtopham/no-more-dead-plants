@@ -1,11 +1,14 @@
 //import actions
 import {WATER_PLANT} from '../Actions/waterPlant'
 import { ADD_PLANT } from '../Actions/addPlant'
+import { TOGGLE_EDITING } from '../Actions/toggleEditing'
+import { TOGGLE_ADDING } from '../Actions/toggleAdding'
 //need some dates to calculate last watered dates for our plant friends :)
 const plant1Date = new Date();
 const plant2Date = new Date()
 const defaultState = {
     adding: false,
+    editing: false,
     next_id: 3,
     plants: [
         {
@@ -45,11 +48,20 @@ export const reducer = (state = defaultState, action) => {
         case ADD_PLANT:
             const newPlantArray = state.plants
             newPlantArray.push(action.payload)
-            console.log({newPlantArray})
             return {
                 ...state,
                 plants: newPlantArray,
                 next_id: state.next_id + 1
+            }
+        case TOGGLE_ADDING:
+            return {
+                ...state,
+                adding: !state.adding
+            }
+        case TOGGLE_EDITING:
+            return {
+                ...state,
+                editing: !state.editing
             }
         
         //switch statement goes here, if action is taken

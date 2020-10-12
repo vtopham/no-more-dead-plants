@@ -63,15 +63,26 @@ const PlantCard = props => {
     const {id, name} = props.details;
     const pictureUrl = props.details.picture_url;
     const goal = props.details.watering_goal_in_days;
-    const lastWatered = new Date(props.details.watering_history);
+    let lastWatered = null
+    let daysSinceWatered = null
+    if (props.details.watering_history != null) {
+        lastWatered = new Date(props.details.watering_history);
+        daysSinceWatered = Math.floor((today.getTime() - lastWatered.getTime()) / (1000 * 3600 * 24))
+    } else {
+        lastWatered = null
+    }
+    
     //we want to calculate the last watering date
     
-    const daysSinceWatered = Math.floor((today.getTime() - lastWatered.getTime()) / (1000 * 3600 * 24))
+    
    
     
     const WateringFeedback = props => {
         const {daysSinceWatered, goal} = props;
-        if (daysSinceWatered > goal) {
+        if (daysSinceWatered === null) {
+            return <p className = "feedback">Try watering it!</p>
+        }
+        else if (daysSinceWatered > goal) {
             const days = daysSinceWatered - goal
             return <p className = "feedback">You should have watered this plant {days} {days === 1? "day" : "days"} ago!</p>
         } else if (daysSinceWatered === goal) {
@@ -87,7 +98,6 @@ const PlantCard = props => {
         const wateringDate = new Date();
         props.waterPlant(id, wateringDate)
     }
-
     return(
         <StyledDiv>
             
@@ -97,7 +107,8 @@ const PlantCard = props => {
             <div className = "non-image-content">
                 <div className = "user-information">
                     <p className = "plant-name">{name}</p>
-                    <p>Last watered {daysSinceWatered} days ago.</p>
+                    
+                    {lastWatered === null ? <p>You haven't watered this plant yet.</p> : <p>Last watered {daysSinceWatered} days ago.</p>}
                     <WateringFeedback daysSinceWatered = {daysSinceWatered} goal = {goal}/>
                 </div>
                 <div className = "user-input">
