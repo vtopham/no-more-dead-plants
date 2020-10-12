@@ -1,5 +1,6 @@
 # no-more-dead-plants
 An app used for tracking your plant watering habits.
+[Deployed here.](https://no-more-dead-plants.vercel.app/home)
 
 This project is a work-in-progress demonstration of a front end app using React and Redux.
 
@@ -12,6 +13,7 @@ This project is a work-in-progress demonstration of a front end app using React 
 * The ability to edit plant information
 * The ability to delete a plant (rip)
 * Form validation for adding and editing plants
+* Mobile friendly design
 
 
 ## Possibilities for added scope & functionality
