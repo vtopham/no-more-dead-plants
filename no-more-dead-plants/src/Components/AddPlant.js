@@ -13,6 +13,7 @@ const ModalContainer = styled.div`
     position: absolute;
     margin: 0 auto;
     background: white;
+    z-index: 1;
     // margin-top: 3%;
     padding: 5%;
     border-radius: 5px;
@@ -92,11 +93,11 @@ const AddPlant = props => {
 
     const submitForm = e => {
         e.preventDefault();
-        setFormState({
+        
+        props.addPlant({
             ...formState,
             id: props.state.next_id
         });
-        props.addPlant(formState);
         props.toggleAdding();
         setFormState(blankForm);
         props.history.push("/home")
