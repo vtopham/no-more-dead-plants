@@ -145,9 +145,9 @@ const PlantCard = props => {
     return(
         <StyledDiv>
              <div className = "icons-container">
-                <button className = "edit-button icon-button" >
+                {/* <button className = "edit-button icon-button" >
                     <i className = "material-icons">create</i>
-                </button>
+                </button> */}
                 <button className = "delete-button icon-button" onClick = {deletePlant}>
                     <i id = {id} className = "material-icons">delete</i>
                 </button>
