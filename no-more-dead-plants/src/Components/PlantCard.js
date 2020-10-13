@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 import { connect } from 'react-redux'
 import {waterPlant} from '../State/Actions/waterPlant'
-import EditDelete from './EditDelete.js'
+import {deletePlant} from '../State/Actions/deletePlant'
 const StyledDiv = styled.div`
 
     position: relative;
@@ -136,15 +136,20 @@ const PlantCard = props => {
         props.waterPlant(id, wateringDate)
     }
 
+    const deletePlant = e => {
+        e.preventDefault();
+        props.deletePlant(e.target.id);
+    }
+
 
     return(
         <StyledDiv>
              <div className = "icons-container">
-                <button className = "edit-button icon-button">
+                <button className = "edit-button icon-button" >
                     <i className = "material-icons">create</i>
                 </button>
-                <button className = "delete-button icon-button">
-                    <i className = "material-icons">delete</i>
+                <button className = "delete-button icon-button" onClick = {deletePlant}>
+                    <i id = {id} className = "material-icons">delete</i>
                 </button>
             </div>
             <div className = "image-container">
@@ -167,4 +172,4 @@ const PlantCard = props => {
     )
 }
 
-export default connect(mapStateToProps, {waterPlant})(PlantCard)
+export default connect(mapStateToProps, {waterPlant, deletePlant})(PlantCard)

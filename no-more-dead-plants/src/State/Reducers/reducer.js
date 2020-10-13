@@ -3,6 +3,7 @@ import {WATER_PLANT} from '../Actions/waterPlant'
 import { ADD_PLANT } from '../Actions/addPlant'
 import { TOGGLE_EDITING } from '../Actions/toggleEditing'
 import { TOGGLE_ADDING } from '../Actions/toggleAdding'
+import { DELETE_PLANT } from '../Actions/deletePlant'
 //need some dates to calculate last watered dates for our plant friends :)
 const plant1Date = new Date();
 const plant2Date = new Date()
@@ -63,8 +64,18 @@ export const reducer = (state = defaultState, action) => {
                 ...state,
                 editing: !state.editing
             }
+        case DELETE_PLANT:
+            const newArrayWithoutPlant = state.plants.filter(plant => {
+                if (plant.id != action.payload) {
+                    return plant
+                } 
+            })
+            return {
+                ...state,
+                plants: newArrayWithoutPlant
+            }
         
-        //switch statement goes here, if action is taken
+        
         default: return state
     }
 }
