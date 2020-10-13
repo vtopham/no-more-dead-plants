@@ -6,7 +6,7 @@ import { toggleAdding } from '../State/Actions/toggleAdding'
 const HeaderContainer = styled.div`
 
     margin-bottom: 2%;
-    padding-top: 4%;
+    padding-top: 2%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,7 +15,7 @@ const HeaderContainer = styled.div`
     z-index: 1;
     background: white;
     width: 100%;
-    height: 150px;
+    height: 130px;
     h1 {
         font-size: 3rem;
         margin: 2% 0;

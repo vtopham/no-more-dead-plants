@@ -3,7 +3,10 @@ import styled from 'styled-components'
 
 import { connect } from 'react-redux'
 import {waterPlant} from '../State/Actions/waterPlant'
+import EditDelete from './EditDelete.js'
 const StyledDiv = styled.div`
+
+    position: relative;
     border: 2px solid #ebebeb;
     border-radius: 5px;
     display: flex;
@@ -11,6 +14,38 @@ const StyledDiv = styled.div`
     margin: 2% 0;
     padding: 2%;
     width: 80%; 
+
+
+    //icons
+
+    .icon-button {
+        height: 30px;
+        width: 30px;
+        
+        margin: 0 1%;
+
+    }
+   .icons-container {
+        position: absolute;
+        width: 96%;
+        display: flex;
+        justify-content: flex-end;   
+       
+   }
+
+   button {
+    background: #ebebeb;
+    border: 1px solid #ebebeb;
+    border-radius: 5px;
+   }
+   i {
+       font-size: 1rem;
+       color: #6e6e6e;
+       
+   }
+
+
+    //image
     img {
         width: 100%;
         border-radius: 100%;
@@ -19,6 +54,8 @@ const StyledDiv = styled.div`
         width: 30%;
         padding: 2%;
     }
+
+    //other stuff
     .non-image-content {
         display: flex;
         flex-direction: column;
@@ -52,6 +89,7 @@ const StyledDiv = styled.div`
 
 `
 
+
 const mapStateToProps = state => {
     return {
         state: state
@@ -75,7 +113,6 @@ const PlantCard = props => {
     //we want to calculate the last watering date
     
     
-   
     
     const WateringFeedback = props => {
         const {daysSinceWatered, goal} = props;
@@ -98,9 +135,18 @@ const PlantCard = props => {
         const wateringDate = new Date();
         props.waterPlant(id, wateringDate)
     }
+
+
     return(
         <StyledDiv>
-            
+             <div className = "icons-container">
+                <button className = "edit-button icon-button">
+                    <i className = "material-icons">create</i>
+                </button>
+                <button className = "delete-button icon-button">
+                    <i className = "material-icons">delete</i>
+                </button>
+            </div>
             <div className = "image-container">
                 <img src = {pictureUrl}/>
             </div>
