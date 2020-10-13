@@ -13,7 +13,7 @@ const ModalContainer = styled.div`
     position: absolute;
     margin: 0 auto;
     background: white;
-    margin-top: 3%;
+    // margin-top: 3%;
     padding: 5%;
     border-radius: 5px;
     border: 2px solid #ebebeb;
@@ -21,7 +21,7 @@ const ModalContainer = styled.div`
         font-size: 1.4rem;
     }
 
-    box-shadow: -7px 7px 10px #9c9c9c;
+    box-shadow: -7px 7px 10px rgba(0, 0, 0, 0.2);
 
 `
 

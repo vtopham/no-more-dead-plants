@@ -5,11 +5,17 @@ import { connect } from 'react-redux'
 import { toggleAdding } from '../State/Actions/toggleAdding'
 const HeaderContainer = styled.div`
 
-    margin: 4% 0 2% 0;
+    margin-bottom: 2%;
+    padding-top: 4%;
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    box-shadow: 0px 10px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    z-index: 1;
+    background: white;
+    width: 100%;
+    height: 150px;
     h1 {
         font-size: 3rem;
         margin: 2% 0;
