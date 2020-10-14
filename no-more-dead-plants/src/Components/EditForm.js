@@ -1,68 +1,32 @@
 import React, {useState} from 'react'
-
 import styled from 'styled-components'
-import { toggleAdding } from '../State/Actions/toggleAdding'
 import { connect } from 'react-redux'
+
 import ModalContainer from './ModalContainer'
 import StyledForm from './StyledForm'
-//This will pop up when you want to add a plant
-
-
-// const StyledForm = styled.form`
-    
-//     .input-holder {
-//         margin: 4% 0;
-//         display: flex;
-//         flex-direction: column;
-//         align-items: center;
-//         * {
-//             margin: 1% 0;
-//         }
-        
-//     }
-//     input {
-//         border: 1px solid #ebebeb;
-//         padding: 2%;
-//     }
-//     .button-holder {
-//         display: flex;
-//         justify-content: center;
-//         button {
-//             margin: 2% 3%;
-//             padding: 3% 5%;
-//             border-radius: 5px;
-//             border: none;
-//         }
-        
-//     }
-    
-//     .add-button {
-//         background: #a1ffc3;
-//     }
-//     .cancel-button {
-//         background: #ffb2a1;
-//     }
-
-//     .integer-value {
-//         width: 40px;
-//     }
-
-// `
-
+import { toggleEditing } from '../State/Actions/toggleEditing'
+import { editPlant } from '../State/Actions/editPlant'
 const mapStateToProps = state => {
     return {
         state: state
     }
 }
-const AddPlant = props => {
+
+const EditForm = props => {
     
-    const blankForm = {
+    let blankForm = {
         name: '',
         watering_history: null,
         picture_url: '',
         location: '',
         watering_goal_in_days: ''
     }
+    props.state.plants.forEach(plant => {
+        if (plant.id.toString() === props.state.editingId) {
+            blankForm = plant;
+        }
+    })
+    console.log(blankForm)
     const [formState, setFormState] = useState(blankForm)
 
     const updateForm = e => {
@@ -75,12 +39,11 @@ const AddPlant = props => {
 
     const submitForm = e => {
         e.preventDefault();
-        
-        props.addPlant({
-            ...formState,
-            id: props.state.next_id
+        console.log(formState)
+        props.editPlant({
+            ...formState
         });
-        props.toggleAdding();
+        props.toggleEditing();
         setFormState(blankForm);
         props.history.push("/home")
 
@@ -88,15 +51,15 @@ const AddPlant = props => {
 
     const cancelForm = e => {
         e.preventDefault();
-        props.toggleAdding();
+        props.toggleEditing();
         setFormState(blankForm);
         props.history.push("/home")
     }
     return ( 
         <ModalContainer type = "add">
-            <div className = "add-plant-container hide-adding">
+            <div className = "add-plant-container hide-editing">
                 <div>
-                    <h3>Add A Plant</h3>
+                    <h3>Edit</h3>
                 </div>
                 <StyledForm className = "new-plant-form">
                     <div className = "name input-holder" >
@@ -117,7 +80,7 @@ const AddPlant = props => {
                         <input className = "integer-value" value = {formState.watering_goal_in_days} onChange = {updateForm} name = "watering_goal_in_days"/>
                     </div>
                     <div className = "button-holder">
-                        <button className = "add-button" onClick = {submitForm}>Add Plant</button>
+                        <button className = "add-button" onClick = {submitForm}>Submit Edit</button>
                         <button className = "cancel-button" onClick = {cancelForm}>Cancel</button>
                     </div>
                 </StyledForm>
@@ -127,4 +90,4 @@ const AddPlant = props => {
     )
 }
 
-export default connect(mapStateToProps,{toggleAdding})(AddPlant)
+export default connect(mapStateToProps, {toggleEditing, editPlant})(EditForm)

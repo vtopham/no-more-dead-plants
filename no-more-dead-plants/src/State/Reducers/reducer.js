@@ -4,12 +4,14 @@ import { ADD_PLANT } from '../Actions/addPlant'
 import { TOGGLE_EDITING } from '../Actions/toggleEditing'
 import { TOGGLE_ADDING } from '../Actions/toggleAdding'
 import { DELETE_PLANT } from '../Actions/deletePlant'
+import { EDIT_PLANT } from '../Actions/editPlant'
 //need some dates to calculate last watered dates for our plant friends :)
 const plant1Date = new Date();
 const plant2Date = new Date()
 const defaultState = {
     adding: false,
     editing: false,
+    editingId: null,
     next_id: 3,
     plants: [
         {
@@ -62,7 +64,8 @@ export const reducer = (state = defaultState, action) => {
         case TOGGLE_EDITING:
             return {
                 ...state,
-                editing: !state.editing
+                editing: !state.editing,
+                editingId: action.payload
             }
         case DELETE_PLANT:
             const newArrayWithoutPlant = state.plants.filter(plant => {
@@ -74,6 +77,20 @@ export const reducer = (state = defaultState, action) => {
                 ...state,
                 plants: newArrayWithoutPlant
             }
+        case EDIT_PLANT: 
+            const arrayForEdits = state.plants.map(plant => {
+                if (plant.id === action.payload.id) {
+                    return action.payload
+                } else {
+                    return plant
+                }
+            })
+            console.log({arrayForEdits})
+            return {
+                ...state,
+                plants: arrayForEdits
+            }
+            
         
         
         default: return state

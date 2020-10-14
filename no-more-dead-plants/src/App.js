@@ -21,6 +21,7 @@ function App() {
         <Route exact path = "/home" component = {Home}/>
         {/* <Route path = "/edit" component = {EditPlant}/> */}
         <Route path = "/add" component = {Home}/>
+        <Route path = "/edit" component = {Home}/>
       </Router>
     </div>
   );

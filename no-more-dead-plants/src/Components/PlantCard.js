@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-
+import {Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import {waterPlant} from '../State/Actions/waterPlant'
 import {deletePlant} from '../State/Actions/deletePlant'
+import { toggleEditing } from '../State/Actions/toggleEditing'
+import EditForm from './EditForm'
 const StyledDiv = styled.div`
 
     position: relative;
@@ -97,6 +99,8 @@ const mapStateToProps = state => {
 }
 
 const PlantCard = props => {
+
+    const [editingId, setEditingId] = useState(null)
     const today = new Date()
     const {id, name} = props.details;
     const pictureUrl = props.details.picture_url;
@@ -140,14 +144,21 @@ const PlantCard = props => {
         e.preventDefault();
         props.deletePlant(e.target.id);
     }
-
-
+    
+    const openEditor = e => {
+        e.preventDefault();
+        props.toggleEditing(e.target.id);
+    }
+    // console.log({props.state.editingId})
+    
     return(
         <StyledDiv>
              <div className = "icons-container">
-                {/* <button className = "edit-button icon-button" >
-                    <i className = "material-icons">create</i>
-                </button> */}
+                <button onClick = {openEditor} className = "edit-button icon-button" >
+                    <Link to = {"/edit"}>
+                        <i id = {id} className = "material-icons">create</i>
+                    </Link>
+                </button>
                 <button className = "delete-button icon-button" onClick = {deletePlant}>
                     <i id = {id} className = "material-icons">delete</i>
                 </button>
@@ -166,10 +177,10 @@ const PlantCard = props => {
                     <button onClick = {wateringEvent}>I watered it!</button>
                 </div>
                 
-
+                
             </div>
         </StyledDiv>
     )
 }
 
-export default connect(mapStateToProps, {waterPlant, deletePlant})(PlantCard)
+export default connect(mapStateToProps, {waterPlant, deletePlant, toggleEditing})(PlantCard)
