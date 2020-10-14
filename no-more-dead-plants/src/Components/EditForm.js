@@ -26,7 +26,6 @@ const EditForm = props => {
             blankForm = plant;
         }
     })
-    console.log(blankForm)
     const [formState, setFormState] = useState(blankForm)
 
     const updateForm = e => {
@@ -39,11 +38,10 @@ const EditForm = props => {
 
     const submitForm = e => {
         e.preventDefault();
-        console.log(formState)
         props.editPlant({
             ...formState
         });
-        props.toggleEditing();
+        props.toggleEditing(props.state.editingId);
         setFormState(blankForm);
         props.history.push("/home")
 
@@ -51,7 +49,7 @@ const EditForm = props => {
 
     const cancelForm = e => {
         e.preventDefault();
-        props.toggleEditing();
+        props.toggleEditing(props.state.editingId);
         setFormState(blankForm);
         props.history.push("/home")
     }

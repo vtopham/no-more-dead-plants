@@ -149,17 +149,16 @@ const PlantCard = props => {
         e.preventDefault();
         props.toggleEditing(e.target.id);
     }
-    // console.log({props.state.editingId})
     
     return(
         <StyledDiv>
              <div className = "icons-container">
                 <button onClick = {openEditor} className = "edit-button icon-button" >
-                    <Link to = {"/edit"}>
+                    <Link id = {id} to = {"/edit"}>
                         <i id = {id} className = "material-icons">create</i>
                     </Link>
                 </button>
-                <button className = "delete-button icon-button" onClick = {deletePlant}>
+                <button id = {id} className = "delete-button icon-button" onClick = {deletePlant}>
                     <i id = {id} className = "material-icons">delete</i>
                 </button>
             </div>

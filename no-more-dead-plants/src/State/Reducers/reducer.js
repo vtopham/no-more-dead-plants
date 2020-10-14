@@ -85,7 +85,6 @@ export const reducer = (state = defaultState, action) => {
                     return plant
                 }
             })
-            console.log({arrayForEdits})
             return {
                 ...state,
                 plants: arrayForEdits
